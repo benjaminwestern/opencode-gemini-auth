@@ -92,6 +92,49 @@ You can also set `OPENCODE_GEMINI_PROJECT_ID`, `GOOGLE_CLOUD_PROJECT`, or
 
 ### Model list
 
+If you want to remove unusable models from the picker, use OpenCode's
+`provider.google.whitelist` or `provider.google.blacklist` settings.
+
+- `whitelist`: only show the listed model IDs.
+- `blacklist`: hide specific model IDs from the default list.
+- `models`: define or override model metadata/options, but does not remove the
+  default models by itself.
+
+Use the exact model IDs reported by `opencode models google` when building these
+lists.
+
+Example: keep only a small Gemini model list visible.
+
+```json
+{
+  "provider": {
+    "google": {
+      "whitelist": [
+        "gemini-2.5-flash",
+        "gemini-2.5-pro",
+        "gemini-3-flash-preview",
+        "gemini-3-pro-preview"
+      ]
+    }
+  }
+}
+```
+
+Example: hide a few unwanted defaults while keeping the rest.
+
+```json
+{
+  "provider": {
+    "google": {
+      "blacklist": [
+        "gemini-2.0-flash-exp",
+        "gemini-1.5-pro"
+      ]
+    }
+  }
+}
+```
+
 Below are example model entries you can add under `provider.google.models` in your
 Opencode config. Each model can include an `options.thinkingConfig` block to
 enable "thinking" features.
